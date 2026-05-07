@@ -1,13 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Buku;
+use App\Models\Siswa;
+use App\Models\Peminjaman;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PeminjamanController;
 
-// Halaman utama redirect ke buku
 Route::get('/', function () {
-    return redirect('/buku');
+    // Ngambil agregat data buat dashboard
+    $totalBuku = Buku::sum('stok');
+    $totalSiswa = Siswa::count();
+    $bukuDipinjam = Peminjaman::where('status', 'dipinjam')->count();
+
+    return view('welcome', compact('totalBuku', 'totalSiswa', 'bukuDipinjam'));
 });
 
 // CRUD Buku
