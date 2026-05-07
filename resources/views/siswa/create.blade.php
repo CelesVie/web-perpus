@@ -1,48 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Siswa')
-
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">➕ Tambah Siswa Baru</h5>
-            </div>
-            <div class="card-body">
-                <form action="/siswa" method="POST">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Nama Lengkap</label>
-                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                            value="{{ old('nama') }}" placeholder="Contoh: Budi Santoso">
-                        @error('nama')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Kelas</label>
-                        <select name="kelas" class="form-select @error('kelas') is-invalid @enderror">
-                            <option value="">-- Pilih Kelas --</option>
-                            <option value="10" {{ old('kelas') == '10' ? 'selected' : '' }}>Kelas 10</option>
-                            <option value="11" {{ old('kelas') == '11' ? 'selected' : '' }}>Kelas 11</option>
-                            <option value="12" {{ old('kelas') == '12' ? 'selected' : '' }}>Kelas 12</option>
-
-                        </select>
-                        @error('kelas')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-success">💾 Simpan</button>
-                        <a href="/siswa" class="btn btn-secondary">Batal</a>
-                    </div>
-                </form>
-            </div>
+<div class="flex justify-center">
+    <div class="w-full max-w-2xl bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-sm">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900">Registrasi Siswa</h2>
+            <p class="mt-2 text-sm text-gray-500">Lengkapi data diri siswa untuk keanggotaan perpus.</p>
         </div>
+
+        <form action="/siswa" method="POST" class="space-y-6">
+            @csrf
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">Nama Lengkap</label>
+                <input type="text" name="nama" class="w-full rounded-2xl border-none bg-gray-50 px-4 py-3.5 focus:bg-white focus:ring-2 focus:ring-blue-500/20 ring-1 ring-gray-200 transition-all outline-none" placeholder="Contoh: Tobias Ibrahim" required>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">NIS</label>
+                    <input type="text" name="nis" class="w-full rounded-2xl border-none bg-gray-50 px-4 py-3.5 focus:bg-white focus:ring-2 focus:ring-blue-500/20 ring-1 ring-gray-200 transition-all outline-none" placeholder="Nomor Induk Siswa" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">Kelas</label>
+                    <select name="kelas" class="w-full rounded-2xl border-none bg-gray-50 px-4 py-3.5 focus:bg-white focus:ring-2 focus:ring-blue-500/20 ring-1 ring-gray-200 transition-all outline-none appearance-none">
+                        <option value="X">Kelas X</option>
+                        <option value="XI">Kelas XI</option>
+                        <option value="XII">Kelas XII</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">Alamat</label>
+                <textarea name="alamat" rows="3" class="w-full rounded-2xl border-none bg-gray-50 px-4 py-3.5 focus:bg-white focus:ring-2 focus:ring-blue-500/20 ring-1 ring-gray-200 transition-all outline-none" placeholder="Alamat lengkap siswa..."></textarea>
+            </div>
+
+            <div class="flex items-center gap-4 pt-4">
+                <button type="submit" class="flex-1 rounded-full bg-gray-900 px-6 py-4 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 active:scale-95 transition-all">Simpan Data</button>
+                <a href="/siswa" class="px-6 py-4 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">Batal</a>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

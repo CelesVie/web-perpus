@@ -1,73 +1,50 @@
 @extends('layouts.app')
 
-@section('title', 'Data Peminjaman')
-
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>📋 Data Peminjaman</h2>
-    <a href="/peminjaman/create" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Catat Peminjaman
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Peminjaman</h2>
+        <p class="mt-1 text-sm text-gray-500">Pantau sirkulasi buku yang sedang dipinjam.</p>
+    </div>
+    <a href="/peminjaman/create" class="inline-flex items-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-blue-700 active:scale-95 transition-all">
+        Proses Peminjaman
     </a>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <table class="table table-hover align-middle">
-            <thead class="table-warning">
-                <tr>
-                    <th>No</th>
-                    <th>Buku</th>
-                    <th>Siswa</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($data as $d)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $d->buku->judul }}</td>
-                    <td>{{ $d->siswa->nama }} <small class="text-muted">(Kls {{ $d->siswa->kelas }})</small></td>
-                    <td>{{ $d->tanggal_pinjam }}</td>
-                    <td>{{ $d->tanggal_kembali ?? '-' }}</td>
-                    <td>
-                        @if($d->status == 'dipinjam')
-                        <span class="badge bg-warning text-dark">Dipinjam</span>
-                        @else
-                        <span class="badge bg-success">Dikembalikan</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if($d->status == 'dipinjam')
-                        <form action="/peminjaman/{{ $d->id }}/kembalikan" method="POST" style="display:inline;">
-                            @csrf
-                            @method('PATCH')
-                            <button class="btn btn-success btn-sm"
-                                onclick="return confirm('Tandai buku ini sudah dikembalikan?')">
-                                ✅ Kembalikan
-                            </button>
-                        </form>
-                        @endif
+<div class="space-y-4">
+    @forelse($peminjamans as $p)
+    <div class="group bg-white rounded-3xl p-5 border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-md">
+        <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2" /></svg>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900">{{ $p->siswa->nama }}</h4>
+                <p class="text-sm text-gray-500">Meminjam: <span class="font-medium text-gray-700">{{ $p->buku->judul }}</span></p>
+            </div>
+        </div>
 
-                        <form action="/peminjaman/{{ $d->id }}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('Hapus data peminjaman ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center text-muted">Belum ada data peminjaman.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="grid grid-cols-2 gap-8 px-4 border-l border-gray-100 hidden md:grid">
+            <div>
+                <p class="text-[10px] uppercase tracking-wider font-bold text-gray-400">Tgl Pinjam</p>
+                <p class="text-sm font-medium text-gray-700">{{ $p->tgl_pinjam }}</p>
+            </div>
+            <div>
+                <p class="text-[10px] uppercase tracking-wider font-bold text-gray-400">Tgl Kembali</p>
+                <p class="text-sm font-medium text-gray-700">{{ $p->tgl_kembali }}</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <form action="/peminjaman/{{ $p->id }}" method="POST" onsubmit="return confirm('Buku sudah dikembalikan?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="rounded-full bg-gray-50 px-5 py-2 text-xs font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-all">Selesaikan</button>
+            </form>
+        </div>
     </div>
+    @empty
+    <div class="rounded-3xl border-2 border-dashed border-gray-200 p-10 text-center text-gray-400 font-medium italic">Belum ada catatan peminjaman aktif.</div>
+    @endforelse
 </div>
 @endsection
