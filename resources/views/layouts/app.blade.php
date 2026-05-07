@@ -45,6 +45,52 @@
 </head>
 
 <body class="font-sans antialiased text-gray-900 h-full">
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 z-[60] w-full max-w-sm px-4">
+
+        @if (session('success'))
+        <div
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 3000)"
+            x-show="show"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-10 scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 -translate-y-10 scale-95"
+            class="bg-white/80 backdrop-blur-xl border border-gray-200 px-5 py-3 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex items-center gap-3">
+            <div class="flex-shrink-0 bg-green-500 rounded-full p-1">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <p class="text-sm font-semibold text-gray-800 tracking-tight">{{ session('success') }}</p>
+        </div>
+        @endif
+
+        @if (session('error') || $errors->any())
+        <div
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 4000)"
+            x-show="show"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-10 scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 -translate-y-10 scale-95"
+            class="bg-white/80 backdrop-blur-xl border border-red-100 px-5 py-3 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex items-center gap-3">
+            <div class="shrink-0 bg-red-500 rounded-full p-1">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+            <p class="text-sm font-semibold text-gray-800 tracking-tight">
+                {{ session('error') ?? 'Ada masalah pada data lo.' }}
+            </p>
+        </div>
+        @endif
+    </div>
 
     <nav x-data="{ open: false, profileOpen: false }"
         class="sticky top-0 z-50 w-full border-b border-gray-200/50 bg-white/70 backdrop-blur-md">
