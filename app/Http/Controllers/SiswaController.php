@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SiswaController extends Controller
 {
@@ -21,11 +22,13 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'  => 'required|string|max:255',
-            'kelas' => 'required|in:10,11,12',
+            'nama'   => 'required|string|max:255',
+            'nis'    => 'required|string|max:100|unique:siswas,nis',
+            'kelas'  => 'required|in:10,11,12',
+            'alamat' => 'nullable|string|max:65535',
         ]);
 
-        Siswa::create($request->all());
+        Siswa::create($request->only(['nama', 'nis', 'kelas', 'alamat']));
         return redirect('/siswa')->with('sukses', 'Siswa berhasil ditambahkan!');
     }
 
@@ -37,13 +40,21 @@ class SiswaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $siswa = Siswa::findOrFail($id);
+
         $request->validate([
-            'nama'  => 'required|string|max:255',
-            'kelas' => 'required|in:10,11,12',
+            'nama'   => 'required|string|max:255',
+            'nis'    => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('siswas', 'nis')->ignore($siswa->id),
+            ],
+            'kelas'  => 'required|in:10,11,12',
+            'alamat' => 'nullable|string|max:65535',
         ]);
 
-        $siswa = Siswa::findOrFail($id);
-        $siswa->update($request->all());
+        $siswa->update($request->only(['nama', 'nis', 'kelas', 'alamat']));
         return redirect('/siswa')->with('sukses', 'Data siswa berhasil diperbarui!');
     }
 

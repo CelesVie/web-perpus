@@ -23,9 +23,9 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">Kelas</label>
                     <select name="kelas" class="w-full rounded-2xl border-none bg-gray-50 px-4 py-3.5 focus:bg-white focus:ring-2 focus:ring-blue-500/20 ring-1 ring-gray-200 transition-all outline-none appearance-none">
-                        <option value="X">Kelas X</option>
-                        <option value="XI">Kelas XI</option>
-                        <option value="XII">Kelas XII</option>
+                        <option value="10">Kelas X</option>
+                        <option value="11">Kelas XI</option>
+                        <option value="12">Kelas XII</option>
                     </select>
                 </div>
             </div>

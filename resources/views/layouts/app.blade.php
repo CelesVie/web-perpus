@@ -99,7 +99,7 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="/" class="text-xl font-bold tracking-tight text-gray-900">
-                            Perpus<span class="text-blue-600">.</span>
+                            Tobias<span class="text-blue-600">.</span>
                         </a>
                     </div>
                     <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
@@ -168,7 +168,7 @@
 
     <footer class="mt-auto py-8 border-t border-gray-200 bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Perpus Modern. Made with &hearts; for beginners.</p>
+            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Perpus Tobias Web. Made with &hearts; for beginners.</p>
         </div>
     </footer>
 

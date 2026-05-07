@@ -11,9 +11,11 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        // with('buku','siswa') = eager loading, supaya relasi ikut diambil sekalian
-        $data = Peminjaman::with('buku', 'siswa')->get();
-        return view('peminjaman.index', compact('data'));
+        // Ubah $data menjadi $peminjamans
+        $peminjamans = Peminjaman::with('buku', 'siswa')->get();
+
+        // Ubah juga nama yang dikirim di compact
+        return view('peminjaman.index', compact('peminjamans'));
     }
 
     public function create()

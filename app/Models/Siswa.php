@@ -8,7 +8,7 @@ class Siswa extends Model
 {
     protected $table = 'siswas';
 
-    protected $fillable = ['nama', 'kelas'];
+    protected $fillable = ['nama', 'nis', 'kelas', 'alamat'];
     
     public static $kelasOptions = ['10', '11', '12'];
 
