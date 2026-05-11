@@ -168,7 +168,7 @@
 
     <footer class="mt-auto py-8 border-t border-gray-200 bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Perpus Tobias Web. Made with &hearts; for beginners.</p>
+            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Tobias's Library Web. Made with Halfheartedly</p>
         </div>
     </footer>
 

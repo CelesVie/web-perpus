@@ -29,11 +29,11 @@
         <div class="grid grid-cols-2 gap-8 px-4 border-l border-gray-100 hidden md:grid">
             <div>
                 <p class="text-[10px] uppercase tracking-wider font-bold text-gray-400">Tgl Pinjam</p>
-                <p class="text-sm font-medium text-gray-700">{{ $p->tgl_pinjam }}</p>
+                <p class="text-sm font-medium text-gray-700">{{ $p->tanggal_pinjam }}</p>
             </div>
             <div>
                 <p class="text-[10px] uppercase tracking-wider font-bold text-gray-400">Tgl Kembali</p>
-                <p class="text-sm font-medium text-gray-700">{{ $p->tgl_kembali }}</p>
+                <p class="text-sm font-medium text-gray-700">{{ $p->tanggal_kembali ?? '-' }}</p>
             </div>
         </div>
 
