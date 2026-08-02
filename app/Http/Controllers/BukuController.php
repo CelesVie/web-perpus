@@ -32,7 +32,7 @@ class BukuController extends Controller
         ]);
 
         Buku::create($request->all());
-        return redirect('/buku')->with('sukses', 'Buku berhasil ditambahkan!');
+        return redirect('/buku')->with('success', 'Buku berhasil ditambahkan!');
     }
 
     // Tampilkan form edit buku
@@ -54,7 +54,7 @@ class BukuController extends Controller
 
         $buku = Buku::findOrFail($id);
         $buku->update($request->all());
-        return redirect('/buku')->with('sukses', 'Buku berhasil diperbarui!');
+        return redirect('/buku')->with('success', 'Buku berhasil diperbarui!');
     }
 
     // Hapus buku
@@ -62,6 +62,6 @@ class BukuController extends Controller
     {
         $buku = Buku::findOrFail($id);
         $buku->delete();
-        return redirect('/buku')->with('sukses', 'Buku berhasil dihapus!');
+        return redirect('/buku')->with('success', 'Buku berhasil dihapus!');
     }
 }

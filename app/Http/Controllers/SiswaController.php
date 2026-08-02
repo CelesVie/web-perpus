@@ -29,7 +29,7 @@ class SiswaController extends Controller
         ]);
 
         Siswa::create($request->only(['nama', 'nis', 'kelas', 'alamat']));
-        return redirect('/siswa')->with('sukses', 'Siswa berhasil ditambahkan!');
+        return redirect('/siswa')->with('success', 'Siswa berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -55,13 +55,13 @@ class SiswaController extends Controller
         ]);
 
         $siswa->update($request->only(['nama', 'nis', 'kelas', 'alamat']));
-        return redirect('/siswa')->with('sukses', 'Data siswa berhasil diperbarui!');
+        return redirect('/siswa')->with('success', 'Data siswa berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $siswa = Siswa::findOrFail($id);
         $siswa->delete();
-        return redirect('/siswa')->with('sukses', 'Siswa berhasil dihapus!');
+        return redirect('/siswa')->with('success', 'Siswa berhasil dihapus!');
     }
 }
